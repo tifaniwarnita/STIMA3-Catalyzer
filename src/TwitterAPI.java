@@ -35,7 +35,11 @@ public class TwitterAPI {
                 result = twitter.search(query);
                 List<Status> tweets = result.getTweets();
                 for (Status tweet : tweets) {
-                    System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
+                    System.out.println("@" + getUserName(tweet));
+                    System.out.println(getTweetText(tweet));
+                    System.out.println("Profile Image: " + getProfileImage(tweet));
+                    System.out.println("URL: " + getTweetLink(tweet));
+                    System.out.println();
                 }
             } while ((query = result.nextQuery()) != null);
             System.exit(0);
@@ -45,4 +49,24 @@ public class TwitterAPI {
             System.exit(-1);
         }
     }
+    
+    public static String getUserName(Status t) {
+        return t.getUser().getScreenName();
+    }
+    
+    public static String getTweetText(Status t) {
+        return t.getText();
+    }
+    
+    public static String getProfileImage(Status t) {
+        User user = t.getUser();
+        return user.getProfileImageURL();
+    }
+    
+    public static String getTweetLink(Status t) {
+        String url= "https://twitter.com/" + t.getUser().getScreenName() 
+    + "/status/" + t.getId();
+        return url;
+    }
+    
 }
