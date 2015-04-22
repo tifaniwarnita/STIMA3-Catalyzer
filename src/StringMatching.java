@@ -3,7 +3,7 @@ import twitter4j.*;
 
 public class StringMatching {
     
-	private int AlgoType;
+    private int AlgoType;
     private List<Status> tweets;
     
     public StringMatching() {
@@ -25,15 +25,15 @@ public class StringMatching {
 		int i=0;
 		int j=0;
 		while (i < n) {
-           if (pattern.charAt(j) == text.charAt(i)) {
+            if (pattern.charAt(j) == text.charAt(i)) {
 				if (j == m - 1)
                    return i - m + 1; // match
 				i++;
 				j++;
-           }
-           else if (j > 0)
+            }
+            else if (j > 0)
 				j = fail[j-1];
-           else
+            else
 				i++;
 		}
 		return -1; // no match
@@ -106,8 +106,21 @@ public class StringMatching {
         List<Status> result3 = new ArrayList<Status>();
         List<Status> result4 = new ArrayList<Status>();
         
+        String[] keyword = input.get(0).split("\\;");
+        while (i<keyword.length) {
+            keyword[i]=keyword[i].trim();
+            i++;
+        }
+        
+        i = 0;
+        String key = new String("(" + keyword[0] + ")");
+        while (i<keyword.length) {
+            key = key + "OR" + "(" + keyword[i] + ")";
+            i++;
+        }
+        
         TwitterAPI.initializeTwitter();
-        tweets = TwitterAPI.TwitterSearch(input.get(0));
+        tweets = TwitterAPI.TwitterSearch(key);
         
         String[] kategori1 = input.get(1).split("\\,");
         while (i<kategori1.length) {
@@ -195,7 +208,7 @@ public class StringMatching {
         
         // BIKIN LIST INPUT
         List<String> input = new ArrayList<String>();
-        input.add("#hiburan");                          // keyword
+        input.add("#hiburan; #jkt48");                  // keyword
         input.add("syahrini, video klip, k-pop");       // keyword kategori 1
         input.add("nonton, bioskop, cinema");           // keyword kategori 2
         input.add("dahsyat, rcti, sinetron");           // keyword kategori 3
