@@ -56,9 +56,13 @@ public class TwitterAPI {
     }
     
     public static String getTweetLink(Status t) {
-        String url= "https://twitter.com/" + t.getUser().getScreenName() 
-    + "/status/" + t.getId();
+        String url= "https://twitter.com/" + t.getUser().getScreenName() + "/status/" + t.getId();
         return url;
+    }
+    
+    public static String getTime(Status t) {
+        Date date = t.getCreatedAt();
+        return date.toString();
     }
     
 }
