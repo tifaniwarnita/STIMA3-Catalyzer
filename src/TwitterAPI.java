@@ -26,28 +26,20 @@ public class TwitterAPI {
         tf = new TwitterFactory(cb.build());
     }
     
-    public static void TwitterSearch(String key) {
+    public static List<Status> TwitterSearch(String key) {
+        List<Status> tweets = new ArrayList<Status>();
         Twitter twitter = tf.getInstance();
         try {
             Query query = new Query(key);
-            QueryResult result;
-            do {
-                result = twitter.search(query);
-                List<Status> tweets = result.getTweets();
-                for (Status tweet : tweets) {
-                    System.out.println("@" + getUserName(tweet));
-                    System.out.println(getTweetText(tweet));
-                    System.out.println("Profile Image: " + getProfileImage(tweet));
-                    System.out.println("URL: " + getTweetLink(tweet));
-                    System.out.println();
-                }
-            } while ((query = result.nextQuery()) != null);
-            System.exit(0);
+            query.setCount(20);
+            QueryResult result = twitter.search(query);
+            tweets = result.getTweets();
         } catch (TwitterException te) {
             te.printStackTrace();
             System.out.println("Failed to search tweets: " + te.getMessage());
             System.exit(-1);
         }
+        return tweets;
     }
     
     public static String getUserName(Status t) {
