@@ -1,3 +1,49 @@
+<%@ page import="java.util.List, catalyzer" %> 
+<%!
+public String formatTweet(Status S) {
+	return (
+	"<div class=\"message-item\">"
+	+"	<div class=\"message-inner\">"
+	+"		<div class=\"message-head clearfix\">"
+	+"			<div class=\"avatar pull-left\"><a href=\""
+	+			S.getUser().getURL()
+	+"			\"><img src=\""
+	+			S.getUser().getProfileImageURL()
+	+"			\"></div>"
+	+"			<div class=\"user-detail\">"
+	+"				<h5 class=\"handle\">"
+	+				S.getUser().getName()
+	+"				</h5>"
+	+"				<div class=\"post-meta\">"
+	+"					<div class=\"asker-meta\">"
+	+"						<span class=\"qa-message-who\">"
+	+"							<span class=\"qa-message-who-data\"><a href=\""
+	+							S.getUser().getURL()
+	+"							\">"
+	+								S.getUser().getScreenName()
+	+"							</a></span>"
+	+"						</span> | "
+	+"						<span class=\"qa-message-when\">"
+	+"							<span class=\"qa-message-when-data\">"
+	+							S.getCreatedAt()
+	+"							</span>"
+	+"						</span>"
+	+"							<a href=\""
+	+							"https://twitter.com/" + S.getUser().getScreenName + "/status/" + status.getId()
+	+"							\" target=\"_blank\">"
+	+"							<span class=\"glyphicon glyphicon-new-window\" aria-hidden=\"true\" style=\"position:absolute;right:15px;top:30px\"></span></a>"
+	+"					</div>"
+	+" 				</div>"
+	+"			</div>"
+	+"		</div>"
+	+"		<div class=\"qa-message-content\">"
+	+		S.getText()
+	+"		</div>"
+	+"	</div>"
+	+"</div>"
+	);
+}
+%>
 <html>
 <head>
 	<title>Twitter Analysis</title>
@@ -10,9 +56,8 @@
 	<br><br>
 	<div class="row-fluid">
 	
-	<%-- Catalyzer = new StringMatching();
-		Catalyzer.setAlgo(request.getParameter("algo")); --%>
-	<%
+	<% Catalyzer = new StringMatching();
+		Catalyzer.setAlgo(request.getParameter("algo"));
 		String Tquery= request.getParameter("Tquery");
 		String internet = request.getParameter("internet");
 		String gadget = request.getParameter("gadget");
@@ -45,15 +90,28 @@
 					<% 	if (Tquery==null || Tquery.isEmpty()) {
 							out.println("Anda tidak memasukkan keyword untuk topik ini");
 						}
-						else { %>
-						<b><% out.print("tes"); %></b><br>
-						<%
-							out.print(Tquery);
-							out.print(internet);
-							out.print(gadget);
-		    				out.print(sains);
+						else {
+							List<String> Twords = new List<String>();
+							Twords.add(Tquery);
+							Twords.add(internet);
+							Twords.add(gadget);
+		    				Twords.add(sains);
+		    				List<List<Status>> Tresults = Catalyzer.Analyze(Twords);
+		    				out.print("<div class=\"qa-message-list\" id=\"Tresults\">");
+		    				for (int i=0;i<Tresults[0].length();i++) {
+		    					out.print(formatTweet(Tresults[0][i]));
+		    				}
+		    				out.print("</div>");
 		    			}
 		    		%>
+		    		
+		    			<%	for (int i=0;i<3;i++) {
+		    				out.print(formatTweet());
+		    			} %>
+		    		</div>
+
+
+
 		        </div>
 		        <div class="tab-pane fade" id="H">
 		        	<br><br>
@@ -71,7 +129,7 @@
 		</div>
 	</div>
 </div>
-	
+
     <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
