@@ -1,25 +1,26 @@
-<%@ page import="java.util.List, catalyzer" %> 
+<%@ page import="java.util.List, java.util.ArrayList, stringmatch.*, twitter4j.*, twitter4j.conf.ConfigurationBuilder" %> 
 <%!
 public String formatTweet(Status S) {
 	return (
 	"<div class=\"message-item\">"
 	+"	<div class=\"message-inner\">"
 	+"		<div class=\"message-head clearfix\">"
-	+"			<div class=\"avatar pull-left\"><a href=\""
-	+			S.getUser().getURL()
+	+"			<div class=\"avatar pull-left\"><a href=\"http://twitter.com/"
+	+			S.getUser().getScreenName()
 	+"			\"><img src=\""
 	+			S.getUser().getProfileImageURL()
 	+"			\"></div>"
 	+"			<div class=\"user-detail\">"
+	+"				<h5 class=\"handle\">"
 	+"				<h5 class=\"handle\">"
 	+				S.getUser().getName()
 	+"				</h5>"
 	+"				<div class=\"post-meta\">"
 	+"					<div class=\"asker-meta\">"
 	+"						<span class=\"qa-message-who\">"
-	+"							<span class=\"qa-message-who-data\"><a href=\""
-	+							S.getUser().getURL()
-	+"							\">"
+	+"							<span class=\"qa-message-who-data\"><a href=\"http://twitter.com/"
+	+							S.getUser().getScreenName()
+	+"							\">@"
 	+								S.getUser().getScreenName()
 	+"							</a></span>"
 	+"						</span> | "
@@ -29,7 +30,7 @@ public String formatTweet(Status S) {
 	+"							</span>"
 	+"						</span>"
 	+"							<a href=\""
-	+							"https://twitter.com/" + S.getUser().getScreenName + "/status/" + status.getId()
+	+							"https://twitter.com/" + S.getUser().getScreenName() + "/status/" + S.getId()
 	+"							\" target=\"_blank\">"
 	+"							<span class=\"glyphicon glyphicon-new-window\" aria-hidden=\"true\" style=\"position:absolute;right:15px;top:30px\"></span></a>"
 	+"					</div>"
@@ -47,16 +48,16 @@ public String formatTweet(Status S) {
 <html>
 <head>
 	<title>Twitter Analysis</title>
-	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap.css" rel="stylesheet">
 	<link href="css/stima.css" rel="stylesheet">
 	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="container-fluid">
 	<br><br>
-	<div class="row-fluid">
+	<div class="row" style="height:380px">
 	
-	<% Catalyzer = new StringMatching();
+	<% StringMatching Catalyzer = new StringMatching();
 		Catalyzer.setAlgo(request.getParameter("algo"));
 		String Tquery= request.getParameter("Tquery");
 		String internet = request.getParameter("internet");
@@ -74,6 +75,144 @@ public String formatTweet(Status S) {
 		String kesehatan = request.getParameter("kesehatan");
 		String kecantikan = request.getParameter("kecantikan");
 		String produk = request.getParameter("produk");
+		String internetresults = "";
+		String gadgetresults = "";
+		String sainsresults = "";
+		String Tunknownresults = "";
+		String filmresults = "";
+		String musikresults = "";
+		String gameresults = "";
+		String Hunknownresults = "";
+		String pemainresults = "";
+		String timresults = "";
+		String pertandinganresults = "";
+		String Ounknownresults = "";
+		String kesehatanresults = "";
+		String kecantikanresults = "";
+		String produkresults = "";
+		String Kunknownresults = "";
+		if (Tquery!=null && !Tquery.isEmpty()) {
+			List<String> Twords = new ArrayList<String>();
+			Twords.add(Tquery);
+			Twords.add(internet);
+			Twords.add(gadget);
+			Twords.add(sains);
+			List<List<Status>> Tresults = new ArrayList<List<Status>>();
+			Tresults = Catalyzer.Analyze(Twords);
+			int i;
+			if (Tresults.get(0).size()>0) {
+				for (i=0;i<Tresults.get(0).size();i++) {
+					internetresults += (formatTweet(Tresults.get(0).get(i)));
+				}
+			}
+			if (Tresults.get(1).size()>0) {
+				for (i=0;i<Tresults.get(1).size();i++) {
+					gadgetresults += (formatTweet(Tresults.get(1).get(i)));
+				}
+			}
+			if (Tresults.get(2).size()>0) {
+				for (i=0;i<Tresults.get(2).size();i++) {
+					sainsresults += (formatTweet(Tresults.get(2).get(i)));
+				}
+			}
+			if (Tresults.get(3).size()>0) {
+				for (i=0;i<Tresults.get(3).size();i++) {
+					Tunknownresults += (formatTweet(Tresults.get(3).get(i)));
+				}
+			}
+		}
+		if (Hquery!=null && !Hquery.isEmpty()) {
+			List<String> Hwords = new ArrayList<String>();
+			Hwords.add(Hquery);
+			Hwords.add(film);
+			Hwords.add(musik);
+			Hwords.add(game);
+			List<List<Status>> Hresults = new ArrayList<List<Status>>();
+			Hresults = Catalyzer.Analyze(Hwords);
+			int i;
+			if (Hresults.get(0).size()>0) {
+				for (i=0;i<Hresults.get(0).size();i++) {
+					filmresults += (formatTweet(Hresults.get(0).get(i)));
+				}
+			}
+			if (Hresults.get(1).size()>0) {
+				for (i=0;i<Hresults.get(1).size();i++) {
+					musikresults += (formatTweet(Hresults.get(1).get(i)));
+				}
+			}
+			if (Hresults.get(2).size()>0) {
+				for (i=0;i<Hresults.get(2).size();i++) {
+					gameresults += (formatTweet(Hresults.get(2).get(i)));
+				}
+			}
+			if (Hresults.get(3).size()>0) {
+				for (i=0;i<Hresults.get(3).size();i++) {
+					Hunknownresults += (formatTweet(Hresults.get(3).get(i)));
+				}
+			}
+		}
+		if (Oquery!=null && !Oquery.isEmpty()) {
+			List<String> Owords = new ArrayList<String>();
+			Owords.add(Oquery);
+			Owords.add(pemain);
+			Owords.add(tim);
+			Owords.add(pertandingan);
+			List<List<Status>> Oresults = new ArrayList<List<Status>>();
+			Oresults = Catalyzer.Analyze(Owords);
+			int i;
+			if (Oresults.get(0).size()>0) {
+				for (i=0;i<Oresults.get(0).size();i++) {
+					pemainresults += (formatTweet(Oresults.get(0).get(i)));
+				}
+			}
+			if (Oresults.get(1).size()>0) {
+				for (i=0;i<Oresults.get(1).size();i++) {
+					timresults += (formatTweet(Oresults.get(1).get(i)));
+				}
+			}
+			if (Oresults.get(2).size()>0) {
+				for (i=0;i<Oresults.get(2).size();i++) {
+					pertandinganresults += (formatTweet(Oresults.get(2).get(i)));
+				}
+			}
+			if (Oresults.get(3).size()>0) {
+				for (i=0;i<Oresults.get(3).size();i++) {
+					Ounknownresults += (formatTweet(Oresults.get(3).get(i)));
+				}
+			}
+		}
+
+		if (Kquery!=null && !Kquery.isEmpty()) {
+			List<String> Kwords = new ArrayList<String>();
+			Kwords.add(Kquery);
+			Kwords.add(kesehatan);
+			Kwords.add(kecantikan);
+			Kwords.add(produk);
+			List<List<Status>> Kresults = new ArrayList<List<Status>>();
+			Kresults = Catalyzer.Analyze(Kwords);
+			int i;
+			if (Kresults.get(0).size()>0) {
+				for (i=0;i<Kresults.get(0).size();i++) {
+					kesehatanresults += (formatTweet(Kresults.get(0).get(i)));
+				}
+			}
+			if (Kresults.get(1).size()>0) {
+				for (i=0;i<Kresults.get(1).size();i++) {
+					kecantikanresults += (formatTweet(Kresults.get(1).get(i)));
+				}
+			}
+			if (Kresults.get(2).size()>0) {
+				for (i=0;i<Kresults.get(2).size();i++) {
+					produkresults += (formatTweet(Kresults.get(2).get(i)));
+				}
+			}
+			if (Kresults.get(3).size()>0) {
+				for (i=0;i<Kresults.get(3).size();i++) {
+					Kunknownresults += (formatTweet(Kresults.get(3).get(i)));
+				}
+			}
+		}
+
 	%>
 
 	<div class="col-md-7">
@@ -84,46 +223,202 @@ public String formatTweet(Status S) {
 			  <li class="nav"><a href="#K" data-toggle="tab">Kesehatan & Kecantikan</a></li>
 			</ul>
 
-			<div class="tab-content" style="margin-left:5%;margin-right:5%">
+			<div class="tab-content" style="border:1px solid #ddd;border-radius:0px 0px 20px 20px;border-top:0px;padding:40px">
 		        <div class="tab-pane fade in active" id="T">
-		        	<br><br>
 					<% 	if (Tquery==null || Tquery.isEmpty()) {
 							out.println("Anda tidak memasukkan keyword untuk topik ini");
 						}
 						else {
-							List<String> Twords = new List<String>();
-							Twords.add(Tquery);
-							Twords.add(internet);
-							Twords.add(gadget);
-		    				Twords.add(sains);
-		    				List<List<Status>> Tresults = Catalyzer.Analyze(Twords);
-		    				out.print("<div class=\"qa-message-list\" id=\"Tresults\">");
-		    				for (int i=0;i<Tresults[0].length();i++) {
-		    					out.print(formatTweet(Tresults[0][i]));
-		    				}
-		    				out.print("</div>");
+							String Thtml="<div id=\"TCarousel\" class=\"carousel slide\" data-ride=\"carousel\" data-interval=\"false\">"
+							+"    <div class=\"btn-group btn-group-justified\" role=\"group\">"
+							+"      <a data-target=\"#TCarousel\" data-slide-to=\"0\" href=\"#\" class=\"btn btn-default active\">Internet</a>"
+							+"      <a data-target=\"#TCarousel\" data-slide-to=\"1\" href=\"#\" class=\"btn btn-default\">Gadget</a>"
+							+"      <a data-target=\"#TCarousel\" data-slide-to=\"2\" href=\"#\" class=\"btn btn-default\">Sains</a>"
+							+"      <a data-target=\"#TCarousel\" data-slide-to=\"3\" href=\"#\" class=\"btn btn-default\">Unknown</a>"
+							+"    </div>"
+							+"    <br>"
+							+"    <!-- Indicators -->"
+							+"    <ol class=\"carousel-indicators\">"
+							+"      <li data-target=\"#TCarousel\" data-slide-to=\"0\" class=\"active\"></li>"
+							+"      <li data-target=\"#TCarousel\" data-slide-to=\"1\"></li>"
+							+"      <li data-target=\"#TCarousel\" data-slide-to=\"2\"></li>"
+							+"      <li data-target=\"#TCarousel\" data-slide-to=\"3\"></li>"
+							+"    </ol>"
+							+"    <!-- Wrapper for slides -->"
+							+"    <div class=\"carousel-inner\" role=\"listbox\" style = \"height:95%;overflow-y:auto;overflow-x:hidden;padding-right:10px\">"
+							+"      <div class=\"item active\">"
+							+"     	<div class=\"qa-message-list\">"
+							+			internetresults
+							+"     	</div>"
+							+"      </div>"
+							+"      <div class=\"item\">"
+							+"      <div class=\"qa-message-list\">"
+							+			gadgetresults
+							+"      </div>"
+							+"      </div>"
+							+"      <div class=\"item\">"
+							+"      	<div class=\"qa-message-list\">"
+							+			sainsresults
+							+"      	</div>"
+							+"      </div>"
+							+"      <div class=\"item\">"
+							+"      	<div class=\"qa-message-list\">"
+							+			Tunknownresults
+							+"      	</div>"
+							+"      </div>"
+							+"    </div><!--carousel-inner-->"
+							+"</div><!--carousel-->";
+							out.println(Thtml);
 		    			}
 		    		%>
 		    		
-		    			<%	for (int i=0;i<3;i++) {
-		    				out.print(formatTweet());
-		    			} %>
 		    		</div>
 
-
-
-		        </div>
 		        <div class="tab-pane fade" id="H">
-		        	<br><br>
+		        	<% 	if (Hquery==null || Hquery.isEmpty()) {
+							out.println("Anda tidak memasukkan keyword untuk topik ini");
+						}
+						else {
+							String Hhtml="<div id=\"HCarousel\" class=\"carousel slide\" data-ride=\"carousel\" data-interval=\"false\">"
+							+"    <div class=\"btn-group btn-group-justified\" role=\"group\">"
+							+"      <a data-target=\"#HCarousel\" data-slide-to=\"0\" href=\"#\" class=\"btn btn-default active\">Film</a>"
+							+"      <a data-target=\"#HCarousel\" data-slide-to=\"1\" href=\"#\" class=\"btn btn-default\">Musik</a>"
+							+"      <a data-target=\"#HCarousel\" data-slide-to=\"2\" href=\"#\" class=\"btn btn-default\">Game</a>"
+							+"      <a data-target=\"#HCarousel\" data-slide-to=\"3\" href=\"#\" class=\"btn btn-default\">Unknown</a>"
+							+"    </div>"
+							+"    <br>"
+							+"    <!-- Indicators -->"
+							+"    <ol class=\"carousel-indicators\">"
+							+"      <li data-target=\"#HCarousel\" data-slide-to=\"0\" class=\"active\"></li>"
+							+"      <li data-target=\"#HCarousel\" data-slide-to=\"1\"></li>"
+							+"      <li data-target=\"#HCarousel\" data-slide-to=\"2\"></li>"
+							+"      <li data-target=\"#HCarousel\" data-slide-to=\"3\"></li>"
+							+"    </ol>"
+							+"    <!-- Wrapper for slides -->"
+							+"    <div class=\"carousel-inner\" role=\"listbox\" style = \"height:95%;overflow-y:auto;overflow-x:hidden;padding-right:10px\">"
+							+"      <div class=\"item active\">"
+							+"     	<div class=\"qa-message-list\">"
+							+			filmresults
+							+"     	</div>"
+							+"      </div>"
+							+"      <div class=\"item\">"
+							+"      <div class=\"qa-message-list\">"
+							+			musikresults
+							+"      </div>"
+							+"      </div>"
+							+"      <div class=\"item\">"
+							+"      	<div class=\"qa-message-list\">"
+							+			gameresults
+							+"      	</div>"
+							+"      </div>"
+							+"      <div class=\"item\">"
+							+"      	<div class=\"qa-message-list\">"
+							+			Hunknownresults
+							+"      	</div>"
+							+"      </div>"
+							+"    </div><!--carousel-inner-->"
+							+"</div><!--carousel-->";
+							out.println(Hhtml);
+		    			}
+		    		%>
 					
 		        </div>
 		        <div class="tab-pane fade" id="O">
-		        	<br><br>
+		        	<% 	if (Oquery==null || Oquery.isEmpty()) {
+							out.println("Anda tidak memasukkan keyword untuk topik ini");
+						}
+						else {
+							String Ohtml="<div id=\"OCarousel\" class=\"carousel slide\" data-ride=\"carousel\" data-interval=\"false\">"
+							+"    <div class=\"btn-group btn-group-justified\" role=\"group\">"
+							+"      <a data-target=\"#OCarousel\" data-slide-to=\"0\" href=\"#\" class=\"btn btn-default active\">Pemain</a>"
+							+"      <a data-target=\"#OCarousel\" data-slide-to=\"1\" href=\"#\" class=\"btn btn-default\">Tim</a>"
+							+"      <a data-target=\"#OCarousel\" data-slide-to=\"2\" href=\"#\" class=\"btn btn-default\">Pertandingan</a>"
+							+"      <a data-target=\"#OCarousel\" data-slide-to=\"3\" href=\"#\" class=\"btn btn-default\">Unknown</a>"
+							+"    </div>"
+							+"    <br>"
+							+"    <!-- Indicators -->"
+							+"    <ol class=\"carousel-indicators\">"
+							+"      <li data-target=\"#OCarousel\" data-slide-to=\"0\" class=\"active\"></li>"
+							+"      <li data-target=\"#OCarousel\" data-slide-to=\"1\"></li>"
+							+"      <li data-target=\"#OCarousel\" data-slide-to=\"2\"></li>"
+							+"      <li data-target=\"#OCarousel\" data-slide-to=\"3\"></li>"
+							+"    </ol>"
+							+"    <!-- Wrapper for slides -->"
+							+"    <div class=\"carousel-inner\" role=\"listbox\" style = \"height:95%;overflow-y:auto;overflow-x:hidden;padding-right:10px\">"
+							+"      <div class=\"item active\">"
+							+"     	<div class=\"qa-message-list\">"
+							+			pemainresults
+							+"     	</div>"
+							+"      </div>"
+							+"      <div class=\"item\">"
+							+"      <div class=\"qa-message-list\">"
+							+			timresults
+							+"      </div>"
+							+"      </div>"
+							+"      <div class=\"item\">"
+							+"      	<div class=\"qa-message-list\">"
+							+			pertandinganresults
+							+"      	</div>"
+							+"      </div>"
+							+"      <div class=\"item\">"
+							+"      	<div class=\"qa-message-list\">"
+							+			Ounknownresults
+							+"      	</div>"
+							+"      </div>"
+							+"    </div><!--carousel-inner-->"
+							+"</div><!--carousel-->";
+							out.println(Ohtml);
+		    			}
+		    		%>
 					
 				</div>
 		        <div class="tab-pane fade" id="K">
-		        	<br><br>
-					
+		        	<% 	if (Kquery==null || Kquery.isEmpty()) {
+							out.println("Anda tidak memasukkan keyword untuk topik ini");
+						}
+						else {
+							String Khtml="<div id=\"KCarousel\" class=\"carousel slide\" data-ride=\"carousel\" data-interval=\"false\">"
+							+"    <div class=\"btn-group btn-group-justified\" role=\"group\">"
+							+"      <a data-target=\"#KCarousel\" data-slide-to=\"0\" href=\"#\" class=\"btn btn-default active\">Kesehatan</a>"
+							+"      <a data-target=\"#KCarousel\" data-slide-to=\"1\" href=\"#\" class=\"btn btn-default\">Kecantikan</a>"
+							+"      <a data-target=\"#KCarousel\" data-slide-to=\"2\" href=\"#\" class=\"btn btn-default\">Produk</a>"
+							+"      <a data-target=\"#KCarousel\" data-slide-to=\"3\" href=\"#\" class=\"btn btn-default\">Unknown</a>"
+							+"    </div>"
+							+"    <br>"
+							+"    <!-- Indicators -->"
+							+"    <ol class=\"carousel-indicators\">"
+							+"      <li data-target=\"#KCarousel\" data-slide-to=\"0\" class=\"active\"></li>"
+							+"      <li data-target=\"#KCarousel\" data-slide-to=\"1\"></li>"
+							+"      <li data-target=\"#KCarousel\" data-slide-to=\"2\"></li>"
+							+"      <li data-target=\"#KCarousel\" data-slide-to=\"3\"></li>"
+							+"    </ol>"
+							+"    <!-- Wrapper for slides -->"
+							+"    <div class=\"carousel-inner\" role=\"listbox\" style = \"height:95%;overflow-y:auto;overflow-x:hidden;padding-right:10px\">"
+							+"      <div class=\"item active\">"
+							+"     	<div class=\"qa-message-list\">"
+							+			kesehatanresults
+							+"     	</div>"
+							+"      </div>"
+							+"      <div class=\"item\">"
+							+"      <div class=\"qa-message-list\">"
+							+			kecantikanresults
+							+"      </div>"
+							+"      </div>"
+							+"      <div class=\"item\">"
+							+"      	<div class=\"qa-message-list\">"
+							+			produkresults
+							+"      	</div>"
+							+"      </div>"
+							+"      <div class=\"item\">"
+							+"      	<div class=\"qa-message-list\">"
+							+			Kunknownresults
+							+"      	</div>"
+							+"      </div>"
+							+"    </div><!--carousel-inner-->"
+							+"</div><!--carousel-->";
+							out.println(Khtml);
+		    			}
+		    		%>
 		        </div>
 		    </div>
 		</div>
@@ -133,7 +428,16 @@ public String formatTweet(Status S) {
     <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+     <script type="text/javascript">
+    	$(".btn-group > .btn").click(function(){
+    	$(this).addClass("active").siblings().removeClass("active");
+		});
+		$(".nav-tabs a").click(function(e){
+			e.preventDefault();
+    		$(this).tab("show");
+		});
+    </script>
 </body>
 </html>
 
