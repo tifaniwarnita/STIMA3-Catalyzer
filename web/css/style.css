@@ -1,0 +1,77 @@
+body {
+	background-size: 100% auto;
+	margin:0;
+}
+
+h1 {
+    color: orange;
+    text-align: center;
+}
+
+p {
+    font-family: "Times New Roman";
+    font-size: 20px;
+}
+
+.bodywelcome {
+	background-image: url("../design/cropped2.gif");
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	margin:0;
+
+}
+
+#welcome-section{	
+	width: 100%;
+	height:768px;
+	background-image: url("../design/cropped2.gif");
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	background-color: #261804;
+}
+
+#empty-section{
+   	width: 100%;
+	height:768px;
+    /*padding: 0px;
+    /*margin: 20px auto 0px auto;*/
+    background-color: #261804;
+	background-repeat:no-repeat;
+	background-size: 100%;
+}
+
+#main-section {
+	background : transparent;
+	width: 100%;
+	height:768px;
+}
+
+
+.catalyzer-logo {
+	position:relative;
+	top:510px;
+	left:20px;
+	background: url("../design/CATalyzer.png");
+	background-color: transparent;
+	background-repeat:no-repeat;
+	display:block;
+	border:none;
+	width:448px;
+	height:116px;
+	margin:0;
+	}
+
+.catalyzer-logo:hover {
+	position:relative;
+	top:510px;
+	left:20px;
+	width:448px;
+	height:116px;
+	background: url("../design/CATalyzer_hover2.png");
+	background-color: transparent;
+	background-repeat:no-repeat;
+	display:block;
+	margin:0;
+	}
+
