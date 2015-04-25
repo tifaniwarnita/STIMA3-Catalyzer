@@ -8,7 +8,7 @@
 <body>
 <div class="container-fluid">
 	<br><br>
-	<div class="row-fluid">
+	<div class="row-fluid" style="height:400px">
 	<form class="form-horizontal" role="form" action="resultsnyoba2.jsp" method="POST">
 		<div class="col-md-7">
 			<ul class="nav nav-tabs">
@@ -18,7 +18,7 @@
 			  <li class="nav"><a href="#K" data-toggle="tab">Kesehatan & Kecantikan</a></li>
 			</ul>
 
-			<div class="tab-content">
+			<div class="tab-content" style="border:1px solid #ddd;border-radius:0px 0px 20px 20px;border-top:0px">
 		        <div class="tab-pane fade in active" id="T">
 		        	<br><br>
 					  <div class="form-group">
@@ -127,8 +127,7 @@
 					    </div>
 					  </div>
 		        </div>
-		    </div>
-		    <hr>
+		        <hr>
 		    <div class="form-group">
 		  	<label class="control-label col-md-3">Algoritma:</label>
 		    <div class="col-md-8">
@@ -141,6 +140,8 @@
 		      <button type="submit" class="btn btn-default">Analisis</button>
 		    </div>
 		  </div>
+		    </div>
+		    
 		</div>
 	</form>
 	</div>
@@ -152,6 +153,9 @@
 	--%>
 	<%-- END --%>
 
+	<script type="text/javascript">
+	$("#cinternet").
+	</script>
 	
     <script src="js/jquery.js"></script>
 
