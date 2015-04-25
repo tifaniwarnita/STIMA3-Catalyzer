@@ -1,7 +1,7 @@
 <html>
 <head>
 	<title>Twitter Analysis</title>
-	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap.css" rel="stylesheet">
 	<link href="css/stima.css" rel="stylesheet">
 	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
