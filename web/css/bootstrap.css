@@ -966,7 +966,6 @@ hr {
   margin-top: 20px;
   margin-bottom: 20px;
   border: 0;
-  border-top: 1px solid #eee;
 }
 .sr-only {
   position: absolute;
@@ -1423,6 +1422,7 @@ pre code {
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
+
 }
 .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
   float: left;
@@ -1881,7 +1881,7 @@ pre code {
     margin-left: 41.66666667%;
   }
   .col-md-offset-4 {
-    margin-left: 33.33333333%;
+    margin-left: 43.33333333%;
   }
   .col-md-offset-3 {
     margin-left: 25%;
@@ -2453,6 +2453,7 @@ _:-ms-fullscreen.input-lg,
 }
 .form-group {
   margin-bottom: 15px;
+
 }
 .radio,
 .checkbox {
@@ -2780,14 +2781,7 @@ select[multiple].form-group-lg .form-control {
   }
 }
 .btn {
-  display: inline-block;
-  padding: 0px 0px;
   margin-bottom: 0;
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 1.42857143;
-  text-align: center;
-  white-space: nowrap;
   vertical-align: middle;
   -ms-touch-action: manipulation;
       touch-action: manipulation;
@@ -2796,9 +2790,8 @@ select[multiple].form-group-lg .form-control {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  background-image: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
+  background-image: url("../design/Button_Analyze.png");
+  background-size: 100px 50px;
 }
 .btn:focus,
 .btn:active:focus,
@@ -2835,8 +2828,9 @@ fieldset[disabled] .btn {
 }
 .btn-default {
   color: #333;
-  background-color: #fff;
-  border-color: #ccc;
+  background-color: transparent;
+  background-image: url("../design/Button_Analyze.png");
+  background-size: 100px 50px;
 }
 .btn-default:hover,
 .btn-default:focus,
@@ -3676,6 +3670,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+  color: #261804;
 }
 .nav > li {
   position: relative;
@@ -3689,23 +3684,23 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  background-color: #eee;
+  background-color: #E4DEEE;
 }
 .nav > li.disabled > a {
-  color: #777;
+  color: #FCF3DF;
 }
 .nav > li.disabled > a:hover,
 .nav > li.disabled > a:focus {
-  color: #777;
+  color: #FCF3DF;
   text-decoration: none;
   cursor: not-allowed;
-  background-color: transparent;
+  background-color: #FCF3DF;
 }
 .nav .open > a,
 .nav .open > a:hover,
 .nav .open > a:focus {
-  background-color: #eee;
-  border-color: #428bca;
+  background-color: #FCDFE0;
+  border-color: #FCF3DF;
 }
 .nav .nav-divider {
   height: 1px;
@@ -3737,8 +3732,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs > li.active > a:focus {
   color: #555;
   cursor: default;
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background-color: #FCDFE0;
+  border: 1px solid #FCF3DF;
   border-bottom-color: transparent;
 }
 .nav-tabs.nav-justified {
@@ -3853,9 +3848,13 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     border-bottom-color: #fff;
   }
 }
+.tab-content {
+  background-color: #EBFFF0;
+}
 .tab-content > .tab-pane {
   display: none;
   visibility: hidden;
+  background-color: #EBFFF0;
 }
 .tab-content > .active {
   display: block;
