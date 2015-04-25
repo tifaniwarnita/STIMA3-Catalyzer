@@ -5841,11 +5841,8 @@ button.close {
 }
 .carousel {
   position: relative;
-  border-radius: 0px 0px 20px 20px;
-  border: 1px solid #ddd;
-  border-top: 0px !important;
-  padding: 40px;
-  height: 450px;
+  border: none;
+  padding: 0;
 }
 .carousel-inner {
   position: relative;
@@ -5941,7 +5938,9 @@ button.close {
   background: none !important;
   filter: progid: none !important;
   outline: 0;
+  visibility: hidden !important;
  }
+ 
 .carousel .carousel-control {
   visibility: hidden !important;
 }
