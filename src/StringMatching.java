@@ -144,6 +144,7 @@ public class StringMatching {
         }
         
         for (Status tweet : tweets) {
+            posn = -1;
             i = 0;
             if (AlgoType==0) { // KMP
                 try {
@@ -154,6 +155,7 @@ public class StringMatching {
                     if (posn!=-1)
                         result1.add(tweet);
                     else {
+                        i = 0;
                         while ((posn==-1)&&(i<kategori2.length)) {
                             posn = kmpMatch(tweet.getText(), kategori2[i]);
                             i++;
@@ -161,6 +163,7 @@ public class StringMatching {
                         if (posn!=-1)
                             result2.add(tweet);
                         else {
+                            i = 0;
                             while ((posn==-1)&&(i<kategori3.length)) {
                                 posn = kmpMatch(tweet.getText(), kategori3[i]);
                                 i++;
@@ -182,6 +185,7 @@ public class StringMatching {
                     if (posn!=-1)
                         result1.add(tweet);
                     else {
+                        i = 0;
                         while ((posn==-1)&&(i<kategori2.length)) {
                             posn = bmMatch(tweet.getText(), kategori2[i]);
                             i++;
@@ -189,6 +193,7 @@ public class StringMatching {
                         if (posn!=-1)
                             result2.add(tweet);
                         else {
+                            i =0;
                             while ((posn==-1)&&(i<kategori3.length)) {
                                 posn = bmMatch(tweet.getText(), kategori3[i]);
                                 i++;
@@ -215,10 +220,10 @@ public class StringMatching {
       
         // BIKIN LIST INPUT
         List<String> input = new ArrayList<String>();
-        input.add("#hiburan");                          // keyword
-        input.add("nonton");       // keyword kategori 1
-        input.add("band");           // keyword kategori 2
-        input.add("main");           // keyword kategori 3
+        input.add("#kpop");                          // keyword
+        input.add("suju, super junior, snsd, exo, shinee");       // keyword kategori 1
+        input.add("kara, bigbang, 2ne1, miss A");           // keyword kategori 2
+        input.add("dbsk, tvxq, tohoshinki");           // keyword kategori 3
         
         
         // STRING MATCH
