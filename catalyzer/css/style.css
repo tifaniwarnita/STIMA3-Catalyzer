@@ -1,0 +1,210 @@
+body {
+	background-size: 100% auto;
+	margin:0;
+	overflow:hidden;
+}
+
+h1 {
+    color: orange;
+    text-align: center;
+}
+
+p {
+    font-family: "Times New Roman";
+    font-size: 20px;
+}
+
+.bodywelcome {
+	background-image: url("../design/cropped2.gif");
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	margin:0;
+
+}
+
+#welcome-section{	
+	width: 100%;
+	height:768px;
+	background-image: url("../design/cropped2.gif");
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	background-color: #261804;
+}
+
+#empty-section{
+   	width: 100%;
+	height:768px;
+    /*padding: 0px;
+    /*margin: 20px auto 0px auto;*/
+    background-color: #261804;
+	background-repeat:no-repeat;
+	background-size: 100%;
+}
+
+#main-section {
+	background : transparent;
+	width: 100%;
+	height:100vh;
+	background-image: url("../design/Main_Background.gif");
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	font-family: "Dosis";
+}
+
+#result-page {
+	background : transparent;
+	width: 100%;
+	height:100vh;
+	background-image: url("../design/Result_Background.png");
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	font-family: "Dosis";
+}
+
+
+.catalyzer-logo {
+	position:relative;
+	top:510px;
+	left:20px;
+	background: url("../design/CATalyzer.png");
+	background-color: transparent;
+	background-repeat:no-repeat;
+	display:block;
+	border:none;
+	width:448px;
+	height:116px;
+	margin:0;
+	}
+
+.catalyzer-logo:hover {
+	position:relative;
+	top:510px;
+	left:20px;
+	width:448px;
+	height:116px;
+	background: url("../design/CATalyzer_hover2.png");
+	background-color: transparent;
+	background-repeat:no-repeat;
+	display:block;
+	margin:0;
+	}
+
+.catalyzer-logo2 {
+	position:relative;
+	top:10%;
+	left:13%;
+	background: url("../design/CATalyzer.png");
+	background-color: transparent;
+	background-repeat:no-repeat;
+	display:block;
+	border:none;
+	width:448px;
+	height:116px;
+	margin:0;
+	}
+
+.catalyzer-logo2:hover {
+	position:relative;
+	top:10%;
+	left:13%;
+	width:448px;
+	height:116px;
+	background: url("../design/CATalyzer_hover2.png");
+	background-color: transparent;
+	background-repeat:no-repeat;
+	display:block;
+	margin:0;
+	}
+
+#button-analyze {
+	position:relative;
+	background: url("../design/Button_Analyze.png");
+	background-size: 120px 41px;
+	background-color: transparent;
+	background-repeat:no-repeat;
+	display:block;
+	border:none;
+	width:120px;
+	height:41px;
+	margin:0;
+}
+
+#button-analyze:hover {
+	position:relative;
+	background: url("../design/Button_Analyze_Hover.png");
+	background-size: 120px 41px;
+	background-color: transparent;
+	background-repeat:no-repeat;
+	display:block;
+	border:none;
+	width:120px;
+	height:41px;
+	margin:0;
+}
+
+.KTab{
+	position:absolute;
+	top:15%;
+	left:65%;
+	background: url("../design/Kucing_Kesehatan.gif");
+	background-color: transparent;
+	background-repeat:no-repeat;
+	background-size: 350px auto;
+	display:block;
+	border:none;
+	width:350px;
+	height: 100vh;
+	margin:0;
+	overflow: hidden;
+	}
+
+.HTab{
+	position:absolute;
+	top:5%;
+	left:65%;
+	background: url("../design/Kucing_Hiburan.gif");
+	background-color: transparent;
+	background-repeat:no-repeat;
+	background-size: 380px auto;
+	display:block;
+	border:none;
+	width: 380px;
+	height: 100vh;
+	margin:0;
+	overflow: hidden;
+	}
+
+.TTab{
+	position:absolute;
+	top:15%;
+	left:65%;
+	background: url("../design/Kucing_Teknologi.gif");
+	background-color: transparent;
+	background-repeat:no-repeat;
+	background-size: 350px auto;
+	display:block;
+	border:none;
+	width:350px;
+	height: 100vh;
+	margin:0;
+	overflow: hidden;
+	}
+
+.OTab{
+	position:absolute;
+	top:15%;
+	left:65%;
+	background: url("../design/Kucing_Olahraga.gif");
+	background-color: transparent;
+	background-repeat:no-repeat;
+	background-size: 380px auto;
+	display:block;
+	border:none;
+	width:380px;
+	height: 100vh;
+	margin:0;
+	overflow: hidden;
+	}
