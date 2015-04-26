@@ -1,19 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package twitterstima;
+package stringmatch;
 
-import java.util.List;
+import java.util.*;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
-/**
- *
- * @author Tifani
- */
+
 public class TwitterAPI {
+    
     private static TwitterFactory tf;
     
     public static void initializeTwitter() {
@@ -31,7 +24,7 @@ public class TwitterAPI {
         Twitter twitter = tf.getInstance();
         try {
             Query query = new Query(key);
-            query.setCount(20);
+            query.setCount(200);
             QueryResult result = twitter.search(query);
             tweets = result.getTweets();
         } catch (TwitterException te) {
@@ -64,5 +57,4 @@ public class TwitterAPI {
         Date date = t.getCreatedAt();
         return date.toString();
     }
-    
 }
