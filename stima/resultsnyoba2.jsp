@@ -75,9 +75,9 @@ public String formatTweet(Status S) {
 		String kesehatan = request.getParameter("kesehatan");
 		String kecantikan = request.getParameter("kecantikan");
 		String produk = request.getParameter("produk");
-		String internetresults = "";
 		String gadgetresults = "";
 		String sainsresults = "";
+		String internetresults = "";
 		String Tunknownresults = "";
 		String filmresults = "";
 		String musikresults = "";
@@ -94,25 +94,25 @@ public String formatTweet(Status S) {
 		if (Tquery!=null && !Tquery.isEmpty()) {
 			List<String> Twords = new ArrayList<String>();
 			Twords.add(Tquery);
-			Twords.add(internet);
 			Twords.add(gadget);
 			Twords.add(sains);
+			Twords.add(internet);
 			List<List<Status>> Tresults = new ArrayList<List<Status>>();
 			Tresults = Catalyzer.Analyze(Twords);
 			int i;
 			if (Tresults.get(0).size()>0) {
 				for (i=0;i<Tresults.get(0).size();i++) {
-					internetresults += (formatTweet(Tresults.get(0).get(i)));
+					gadgetresults += (formatTweet(Tresults.get(0).get(i)));
 				}
 			}
 			if (Tresults.get(1).size()>0) {
 				for (i=0;i<Tresults.get(1).size();i++) {
-					gadgetresults += (formatTweet(Tresults.get(1).get(i)));
+					sainsresults  += (formatTweet(Tresults.get(1).get(i)));
 				}
 			}
 			if (Tresults.get(2).size()>0) {
 				for (i=0;i<Tresults.get(2).size();i++) {
-					sainsresults += (formatTweet(Tresults.get(2).get(i)));
+					internetresults += (formatTweet(Tresults.get(2).get(i)));
 				}
 			}
 			if (Tresults.get(3).size()>0) {
@@ -217,10 +217,10 @@ public String formatTweet(Status S) {
 
 	<div class="col-md-7">
 			<ul class="nav nav-tabs">
-			  <li class="nav active"><a href="#T" data-toggle="tab">Teknologi</a></li>
-			  <li class="nav"><a href="#H" data-toggle="tab">Hiburan</a></li>
-			  <li class="nav"><a href="#O" data-toggle="tab">Olahraga</a></li>
-			  <li class="nav"><a href="#K" data-toggle="tab">Kesehatan & Kecantikan</a></li>
+			  <li class="nav active tab" id="TTab"><a href="#T" data-toggle="tab">Teknologi</a></li>
+			  <li class="nav tab" id="HTab"><a href="#H" data-toggle="tab">Hiburan</a></li>
+			  <li class="nav tab" id="OTab"><a href="#O" data-toggle="tab">Olahraga</a></li>
+			  <li class="nav tab" id="KTab"><a href="#K" data-toggle="tab">Kesehatan & Kecantikan</a></li>
 			</ul>
 
 			<div class="tab-content" style="border:1px solid #ddd;border-radius:0px 0px 20px 20px;border-top:0px;padding:40px">
@@ -231,9 +231,9 @@ public String formatTweet(Status S) {
 						else {
 							String Thtml="<div id=\"TCarousel\" class=\"carousel slide\" data-ride=\"carousel\" data-interval=\"false\">"
 							+"    <div class=\"btn-group btn-group-justified\" role=\"group\">"
-							+"      <a data-target=\"#TCarousel\" data-slide-to=\"0\" href=\"#\" class=\"btn btn-default active\">Internet</a>"
-							+"      <a data-target=\"#TCarousel\" data-slide-to=\"1\" href=\"#\" class=\"btn btn-default\">Gadget</a>"
-							+"      <a data-target=\"#TCarousel\" data-slide-to=\"2\" href=\"#\" class=\"btn btn-default\">Sains</a>"
+							+"      <a data-target=\"#TCarousel\" data-slide-to=\"0\" href=\"#\" class=\"btn btn-default active\">Gadget</a>"
+							+"      <a data-target=\"#TCarousel\" data-slide-to=\"1\" href=\"#\" class=\"btn btn-default\">Sains</a>"
+							+"      <a data-target=\"#TCarousel\" data-slide-to=\"2\" href=\"#\" class=\"btn btn-default\">Internet</a>"
 							+"      <a data-target=\"#TCarousel\" data-slide-to=\"3\" href=\"#\" class=\"btn btn-default\">Unknown</a>"
 							+"    </div>"
 							+"    <br>"
@@ -248,17 +248,17 @@ public String formatTweet(Status S) {
 							+"    <div class=\"carousel-inner\" role=\"listbox\" style = \"height:95%;overflow-y:auto;overflow-x:hidden;padding-right:10px\">"
 							+"      <div class=\"item active\">"
 							+"     	<div class=\"qa-message-list\">"
-							+			internetresults
+							+			gadgetresults
 							+"     	</div>"
 							+"      </div>"
 							+"      <div class=\"item\">"
 							+"      <div class=\"qa-message-list\">"
-							+			gadgetresults
+							+			sainsresults
 							+"      </div>"
 							+"      </div>"
 							+"      <div class=\"item\">"
 							+"      	<div class=\"qa-message-list\">"
-							+			sainsresults
+							+			internetresults
 							+"      	</div>"
 							+"      </div>"
 							+"      <div class=\"item\">"
@@ -423,6 +423,7 @@ public String formatTweet(Status S) {
 		    </div>
 		</div>
 	</div>
+	<div id="catimage" class="TTab"></div>
 </div>
 
     <script src="js/jquery.js"></script>
@@ -433,10 +434,11 @@ public String formatTweet(Status S) {
     	$(".btn-group > .btn").click(function(){
     	$(this).addClass("active").siblings().removeClass("active");
 		});
-		$(".nav-tabs a").click(function(e){
-			e.preventDefault();
-    		$(this).tab("show");
-		});
+
+		$('.tab').click(function(){
+		$('#catimage').removeClass();
+		$('#catimage').addClass(this.id);
+	})
     </script>
 </body>
 </html>
