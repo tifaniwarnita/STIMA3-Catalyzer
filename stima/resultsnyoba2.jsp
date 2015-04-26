@@ -247,17 +247,17 @@ public String formatTweet(Status S) {
 							+"    <!-- Wrapper for slides -->"
 							+"    <div class=\"carousel-inner\" role=\"listbox\" style = \"height:95%;overflow-y:auto;overflow-x:hidden;padding-right:10px\">"
 							+"      <div class=\"item active\">"
-							+"     	<div class=\"qa-message-list\">"
+							+"     	<div class=\"qa-message-list\" id=\"gadgetmsg\">"
 							+			gadgetresults
 							+"     	</div>"
 							+"      </div>"
 							+"      <div class=\"item\">"
-							+"      <div class=\"qa-message-list\">"
+							+"      <div class=\"qa-message-list\" id=\"sainsmsg\">"
 							+			sainsresults
 							+"      </div>"
 							+"      </div>"
 							+"      <div class=\"item\">"
-							+"      	<div class=\"qa-message-list\">"
+							+"      	<div class=\"qa-message-list\" id=\"internetmsg\">"
 							+			internetresults
 							+"      	</div>"
 							+"      </div>"
@@ -271,7 +271,6 @@ public String formatTweet(Status S) {
 							out.println(Thtml);
 		    			}
 		    		%>
-		    		
 		    		</div>
 
 		        <div class="tab-pane fade" id="H">
@@ -297,17 +296,17 @@ public String formatTweet(Status S) {
 							+"    <!-- Wrapper for slides -->"
 							+"    <div class=\"carousel-inner\" role=\"listbox\" style = \"height:95%;overflow-y:auto;overflow-x:hidden;padding-right:10px\">"
 							+"      <div class=\"item active\">"
-							+"     	<div class=\"qa-message-list\">"
+							+"     	<div class=\"qa-message-list\" id=\"filmmsg\">"
 							+			filmresults
 							+"     	</div>"
 							+"      </div>"
 							+"      <div class=\"item\">"
-							+"      <div class=\"qa-message-list\">"
+							+"      <div class=\"qa-message-list\" id=\"musikmsg\">"
 							+			musikresults
 							+"      </div>"
 							+"      </div>"
 							+"      <div class=\"item\">"
-							+"      	<div class=\"qa-message-list\">"
+							+"      	<div class=\"qa-message-list\" id=\"gamemsg\">"
 							+			gameresults
 							+"      	</div>"
 							+"      </div>"
@@ -346,17 +345,17 @@ public String formatTweet(Status S) {
 							+"    <!-- Wrapper for slides -->"
 							+"    <div class=\"carousel-inner\" role=\"listbox\" style = \"height:95%;overflow-y:auto;overflow-x:hidden;padding-right:10px\">"
 							+"      <div class=\"item active\">"
-							+"     	<div class=\"qa-message-list\">"
+							+"     	<div class=\"qa-message-list\" id=\"pemainmsg\">"
 							+			pemainresults
 							+"     	</div>"
 							+"      </div>"
 							+"      <div class=\"item\">"
-							+"      <div class=\"qa-message-list\">"
+							+"      <div class=\"qa-message-list\" id=\"timmsg\">"
 							+			timresults
 							+"      </div>"
 							+"      </div>"
 							+"      <div class=\"item\">"
-							+"      	<div class=\"qa-message-list\">"
+							+"      	<div class=\"qa-message-list\" id=\"pertandinganmsg\">"
 							+			pertandinganresults
 							+"      	</div>"
 							+"      </div>"
@@ -395,17 +394,17 @@ public String formatTweet(Status S) {
 							+"    <!-- Wrapper for slides -->"
 							+"    <div class=\"carousel-inner\" role=\"listbox\" style = \"height:95%;overflow-y:auto;overflow-x:hidden;padding-right:10px\">"
 							+"      <div class=\"item active\">"
-							+"     	<div class=\"qa-message-list\">"
+							+"     	<div class=\"qa-message-list\" id=\"kesehatanmsg\">"
 							+			kesehatanresults
 							+"     	</div>"
 							+"      </div>"
 							+"      <div class=\"item\">"
-							+"      <div class=\"qa-message-list\">"
+							+"      <div class=\"qa-message-list\" id=\"kecantikanmsg\">"
 							+			kecantikanresults
 							+"      </div>"
 							+"      </div>"
 							+"      <div class=\"item\">"
-							+"      	<div class=\"qa-message-list\">"
+							+"      	<div class=\"qa-message-list\" id=\"produkmsg\">"
 							+			produkresults
 							+"      	</div>"
 							+"      </div>"
@@ -427,7 +426,7 @@ public String formatTweet(Status S) {
 </div>
 
     <script src="js/jquery.js"></script>
-
+    <script src="https://raw.githubusercontent.com/bartaz/sandbox.js/master/jquery.highlight.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.js"></script>
      <script type="text/javascript">
@@ -438,7 +437,28 @@ public String formatTweet(Status S) {
 		$('.tab').click(function(){
 		$('#catimage').removeClass();
 		$('#catimage').addClass(this.id);
-	})
+		})
+
+		function highlight(text,id) {
+			var splittext = text.split(",");
+			for (var i = splittext.length - 1; i >= 0; i--) {
+				$(id).highlight(splittext[i].trim());
+			};
+		}
+		$(document).ready(function() {
+			highlight("<%=internet%>",internetmsg);
+			highlight("<%=gadget%>",gadgetmsg);
+			highlight("<%=sains%>",sainsmsg);
+			highlight("<%=film%>",filmmsg);
+			highlight("<%=musik%>",musikmsg);
+			highlight("<%=game%>",gamemsg);
+			highlight("<%=pemain%>",pemainmsg);
+			highlight("<%=tim%>",timmsg);
+			highlight("<%=pertandingan%>",pertandinganmsg);
+			highlight("<%=kecantikan%>",kecantikanmsg);
+			highlight("<%=kesehatan%>",kesehatanmsg);
+			highlight("<%=produk%>",produkmsg);
+		})
     </script>
 </body>
 </html>
