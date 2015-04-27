@@ -67,7 +67,6 @@ public String formatTweet(Status S) {
 	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
 	<script src="js/jquery.js"></script>
-   <script src="js/highlight.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.js"></script>
    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAjU0EJWnWPMv7oQ-jjS7dYxSPW5CJgpdgO_s4yyMovOaVh_KvvhSfpvagV18eOyDWu7VytS6Bi1CWxw"
@@ -93,6 +92,7 @@ public String formatTweet(Status S) {
     function showAddress(address) {
       if ($('#map_canvas').is(':visible')) {
       	$('#map_canvas').hide();
+      	$('#catimage').show();
       } else {
 	      if (geocoder) {
         geocoder.getLatLng(
@@ -115,6 +115,7 @@ public String formatTweet(Status S) {
             }
           }
         );
+        $('#catimage').hide();
         $('#map_canvas').show();
         google.maps.event.trigger(map, 'resize');
       }
@@ -500,7 +501,6 @@ public String formatTweet(Status S) {
 	<div id="map_canvas" style="width:400px;height:400px;position:absolute;top:15%;left:60%;display:none;"></div>
 </div>
 </div>
-
 <script type="text/javascript">
       $(".btn-group > .btn").click(function(){
     	$(this).addClass("active").siblings().removeClass("active");
