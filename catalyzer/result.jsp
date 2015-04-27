@@ -1,8 +1,15 @@
-<%@ page import="java.util.List, java.util.ArrayList, stringmatch.*, twitter4j.*, twitter4j.conf.ConfigurationBuilder" %> 
+<%@ page import="java.util.List, java.util.regex.*, java.util.ArrayList, stringmatch.*, twitter4j.*, twitter4j.conf.ConfigurationBuilder" %> 
 <%!
 public String formatTweet(Status S) {
-	return (
-	"<div class=\"message-item\">"
+	Pattern p = Pattern.compile("(d|D)i ([0-9A-Z&][a-zA-z-&]*(\\.)*\\s*)+");
+    Matcher m = p.matcher(S.getText());
+    String address="none";
+    if (m.find())
+    {  	
+      String foundaddress = m.group(0);
+      address = foundaddress.substring(3);
+    }
+	String tweet = "<div class=\"message-item\">"
 	+"	<div class=\"message-inner\">"
 	+"		<div class=\"message-head clearfix\">"
 	+"			<div class=\"avatar pull-left\"><a href=\"http://twitter.com/"
@@ -28,8 +35,11 @@ public String formatTweet(Status S) {
 	+"							<span class=\"qa-message-when-data\">"
 	+							S.getCreatedAt()
 	+"							</span>"
-	+"						</span>"
-	+"							<a href=\""
+	+"						</span>";
+	if (!address.equals("none")) {
+			tweet+="<a href=\"javascript:showAddress('"+address+"')\"><span class=\"glyphicon glyphicon-map-marker\" aria-hidden=\"true\" style=\"position:absolute;right:30px;top:30px\"></span></a>";
+	}
+	tweet+="							<a href=\""
 	+							"https://twitter.com/" + S.getUser().getScreenName() + "/status/" + S.getId()
 	+"							\" target=\"_blank\">"
 	+"							<span class=\"glyphicon glyphicon-new-window\" aria-hidden=\"true\" style=\"position:absolute;right:15px;top:30px\"></span></a>"
@@ -41,21 +51,81 @@ public String formatTweet(Status S) {
 	+		S.getText()
 	+"		</div>"
 	+"	</div>"
-	+"</div>"
-	);
+	+"</div>";
+	return tweet;
 }
 %>
 <html>
 <head>
+	
 	<link rel="shortcut icon" href="design/catalyzer_ico.ico">
 	<title>CATalyzer</title>
 	<link href="css/bootstrap.css" rel="stylesheet">
 	<link href="css/stima.css" rel="stylesheet">
+	
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
+	<script src="js/jquery.js"></script>
+   <script src="js/highlight.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.js"></script>
+   <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAjU0EJWnWPMv7oQ-jjS7dYxSPW5CJgpdgO_s4yyMovOaVh_KvvhSfpvagV18eOyDWu7VytS6Bi1CWxw"
+      type="text/javascript"></script>
+    <script type="text/javascript">
+
+    var map = null;
+    var geocoder = null;
+
+    function initialize() {
+    initializeMap();
+    highlightall();
+    }
+    function initializeMap() {
+    	if (GBrowserIsCompatible()) {
+        map = new GMap2(document.getElementById("map_canvas"));
+        map.setUIToDefault();
+        map.setCenter(new GLatLng(37.4419, -122.1419), 1);
+        geocoder = new GClientGeocoder();
+        google.maps.event.trigger(map, 'resize');
+      }
+    }
+    function showAddress(address) {
+      if ($('#map_canvas').is(':visible')) {
+      	$('#map_canvas').hide();
+      } else {
+	      if (geocoder) {
+        geocoder.getLatLng(
+          address,
+          function(point) {
+            if (!point) {
+              alert(address + " not found");
+            } else {
+              map.setCenter(point, 15);
+              var marker = new GMarker(point, {draggable: true});
+              map.addOverlay(marker);
+              GEvent.addListener(marker, "dragend", function() {
+                marker.openInfoWindowHtml(marker.getLatLng().toUrlValue(6));
+              });
+              GEvent.addListener(marker, "click", function() {
+                marker.openInfoWindowHtml(marker.getLatLng().toUrlValue(6));
+              });
+        GEvent.trigger(marker, "click");
+        google.maps.event.trigger(map, 'resize');
+            }
+          }
+        );
+        $('#map_canvas').show();
+        google.maps.event.trigger(map, 'resize');
+      }
+ 	 }
+  }
+
+    
+    </script>
 </head>
-<body>
+<body onload="initialize()" onunload="GUnload()">
+
 <div id = "result-page">
 <div class="container-fluid">
 	<br><br>
@@ -227,7 +297,7 @@ public String formatTweet(Status S) {
 			  <li class="nav tab" id="KTab"><a href="#K" data-toggle="tab">Kesehatan & Kecantikan</a></li>
 			</ul>
 
-			<div id="tab-content" style="border:1px solid #ddd;border-radius:0px 0px 20px 20px;border-top:0px;padding:40px">
+			<div class="tab-content" id="tab-content" style="border:1px solid #ddd;border-radius:0px 0px 20px 20px;border-top:0px;padding:40px">
 		        <div class="tab-pane fade in active" id="T">
 					<% 	if (Tquery==null || Tquery.isEmpty()) {
 							out.println("Anda tidak memasukkan keyword untuk topik ini");
@@ -427,31 +497,28 @@ public String formatTweet(Status S) {
 		</div>
 	</div>
 	<a href="about.html" id="catimage" class="TTab"></a>
+	<div id="map_canvas" style="width:400px;height:400px;position:absolute;top:15%;left:60%;display:none;"></div>
 </div>
 </div>
 
-    <script src="js/jquery.js"></script>
-        <script src="https://raw.githubusercontent.com/bartaz/sandbox.js/master/jquery.highlight.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.js"></script>
-     <script type="text/javascript">
-    	$(".btn-group > .btn").click(function(){
+<script type="text/javascript">
+      $(".btn-group > .btn").click(function(){
     	$(this).addClass("active").siblings().removeClass("active");
 		});
 
 		$('.tab').click(function(){
 		$('#catimage').removeClass();
 		$('#catimage').addClass(this.id);
-	})
+		})
 
 		function highlight(text,id) {
 			var splittext = text.split(",");
 			for (var i = splittext.length - 1; i >= 0; i--) {
 				$(id).highlight(splittext[i].trim());
-			};
+			}
 		}
-		$(document).ready(function() {
+		function highlightall() {
+			alert("tes2");
 			highlight("<%=internet%>",internetmsg);
 			highlight("<%=gadget%>",gadgetmsg);
 			highlight("<%=sains%>",sainsmsg);
@@ -464,8 +531,10 @@ public String formatTweet(Status S) {
 			highlight("<%=kecantikan%>",kecantikanmsg);
 			highlight("<%=kesehatan%>",kesehatanmsg);
 			highlight("<%=produk%>",produkmsg);
-		})
-    </script>
+		}
+    }
+ </script>
+    
 </body>
 </html>
 
