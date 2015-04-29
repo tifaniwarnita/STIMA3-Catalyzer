@@ -66,9 +66,66 @@ public String formatTweet(Status S) {
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
-	
+	<script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.js"></script>
+   <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAjU0EJWnWPMv7oQ-jjS7dYxSPW5CJgpdgO_s4yyMovOaVh_KvvhSfpvagV18eOyDWu7VytS6Bi1CWxw"
+      type="text/javascript"></script>
+    <script type="text/javascript">
+
+    var map = null;
+    var geocoder = null;
+
+    function initialize() {
+    initializeMap();
+    highlightall();
+    }
+    function initializeMap() {
+    	if (GBrowserIsCompatible()) {
+        map = new GMap2(document.getElementById("map_canvas"));
+        map.setUIToDefault();
+        map.setCenter(new GLatLng(37.4419, -122.1419), 1);
+        geocoder = new GClientGeocoder();
+        google.maps.event.trigger(map, 'resize');
+      }
+    }
+    function showAddress(address) {
+      if ($('#map_canvas').is(':visible')) {
+      	$('#map_canvas').hide();
+      	$('#catimage').show();
+      } else {
+	      if (geocoder) {
+        geocoder.getLatLng(
+          address,
+          function(point) {
+            if (!point) {
+              alert(address + " not found");
+            } else {
+              map.setCenter(point, 15);
+              var marker = new GMarker(point, {draggable: true});
+              map.addOverlay(marker);
+              GEvent.addListener(marker, "dragend", function() {
+                marker.openInfoWindowHtml(marker.getLatLng().toUrlValue(6));
+              });
+              GEvent.addListener(marker, "click", function() {
+                marker.openInfoWindowHtml(marker.getLatLng().toUrlValue(6));
+              });
+        GEvent.trigger(marker, "click");
+        google.maps.event.trigger(map, 'resize');
+            }
+          }
+        );
+        $('#catimage').hide();
+        $('#map_canvas').show();
+        google.maps.event.trigger(map, 'resize');
+      }
+ 	 }
+  }
+
+    
+    </script>
 </head>
-<body>
+<body onload="initialize()" onunload="GUnload()">
 
 <div id = "result-page">
 <div class="container-fluid">
@@ -443,24 +500,17 @@ public String formatTweet(Status S) {
 	<a href="about.html" id="catimage" class="TTab"></a>
 	<div id="map_canvas" style="width:400px;height:400px;position:absolute;top:15%;left:60%;display:none;"></div>
 </div>
-
-	<script src="js/jquery.js"></script>
-	<script src="js/map.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="http://github.com/bartaz/sandbox.js/raw/master/jquery.highlight.js"></script>
-   <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAjU0EJWnWPMv7oQ-jjS7dYxSPW5CJgpdgO_s4yyMovOaVh_KvvhSfpvagV18eOyDWu7VytS6Bi1CWxw"
-      type="text/javascript"></script>
-    <script type="text/javascript">
-		
-
-		$(".btn-group > .btn").click(function(){
+</div>
+<script type="text/javascript">
+      $(".btn-group > .btn").click(function(){
     	$(this).addClass("active").siblings().removeClass("active");
 		});
 
 		$('.tab').click(function(){
 		$('#catimage').removeClass();
 		$('#catimage').addClass(this.id);
-		});
+		})
+
 		function highlight(text,id) {
 			var splittext = text.split(",");
 			for (var i = splittext.length - 1; i >= 0; i--) {
@@ -468,6 +518,7 @@ public String formatTweet(Status S) {
 			}
 		}
 		function highlightall() {
+			alert("tes2");
 			highlight("<%=internet%>",internetmsg);
 			highlight("<%=gadget%>",gadgetmsg);
 			highlight("<%=sains%>",sainsmsg);
@@ -481,15 +532,8 @@ public String formatTweet(Status S) {
 			highlight("<%=kesehatan%>",kesehatanmsg);
 			highlight("<%=produk%>",produkmsg);
 		}
-		highlightall();
-	$(document).ready(function() {
-		
-	    var map = null;
-	    var geocoder = null;
-		initializeMap();
-	});
+    }
  </script>
-</div>
     
 </body>
 </html>
