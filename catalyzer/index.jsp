@@ -43,12 +43,6 @@
 						    </div>
 						  </div>
 						  <div class="form-group">
-						    <label class="control-label col-md-3" for="internet">Kategori internet:</label>
-						    <div class="col-md-8">
-						      <input type="text" class="form-control" id="internet" name="internet" placeholder="Contoh: web, facebook, twitter, online">
-						    </div>
-						  </div>
-						  <div class="form-group">
 						    <label class="control-label col-md-3" for="gadget">Kategori gadget:</label>
 						    <div class="col-md-8">
 						      <input type="text" class="form-control" id="gadget" name="gadget" placeholder="Contoh: android, apple, ipad, smartwatch">
@@ -58,6 +52,13 @@
 						    <label class="control-label col-md-3" for="sains">Kategori sains:</label>
 						    <div class="col-md-8">
 						      <input type="text" class="form-control" id="sains" name="sains" placeholder="Contoh: NASA, robot, energi">
+						    </div>
+						  </div>
+						  
+						  <div class="form-group">
+						    <label class="control-label col-md-3" for="internet">Kategori internet:</label>
+						    <div class="col-md-8">
+						      <input type="text" class="form-control" id="internet" name="internet" placeholder="Contoh: web, facebook, twitter, online">
 						    </div>
 						  </div>
 			        </div>
@@ -167,14 +168,6 @@
 	<a href="#welcome-section" class="catalyzer-logo2 smoothScroll">
 	</a>
 </div>
-
-	<%-- START --%>
-	<%--
-	    out.println("UserName = aavik ");
-	    out.println("Running first program in JSP.");
-	--%>
-	<%-- END --%>
-
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/smoothscroll.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>

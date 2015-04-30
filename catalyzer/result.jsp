@@ -445,11 +445,11 @@ public String formatTweet(Status S) {
 </div>
 
 	<script src="js/jquery.js"></script>
-	<script src="js/map.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="http://github.com/bartaz/sandbox.js/raw/master/jquery.highlight.js"></script>
    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAjU0EJWnWPMv7oQ-jjS7dYxSPW5CJgpdgO_s4yyMovOaVh_KvvhSfpvagV18eOyDWu7VytS6Bi1CWxw"
       type="text/javascript"></script>
+	<script src="js/map.js"></script>
     <script type="text/javascript">
 		
 
@@ -461,6 +461,12 @@ public String formatTweet(Status S) {
 		$('#catimage').removeClass();
 		$('#catimage').addClass(this.id);
 		});
+	$(document).ready(function() {
+	    var map = null;
+	    var geocoder = null;
+		initializeMap();
+	});
+
 		function highlight(text,id) {
 			var splittext = text.split(",");
 			for (var i = splittext.length - 1; i >= 0; i--) {
@@ -482,12 +488,7 @@ public String formatTweet(Status S) {
 			highlight("<%=produk%>",produkmsg);
 		}
 		highlightall();
-	$(document).ready(function() {
-		
-	    var map = null;
-	    var geocoder = null;
-		initializeMap();
-	});
+	
  </script>
 </div>
     
